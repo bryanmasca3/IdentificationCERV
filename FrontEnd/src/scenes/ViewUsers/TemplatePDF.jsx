@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+
 import {
   Page,
   Text,
@@ -6,15 +7,23 @@ import {
   Document,
   StyleSheet,
   Image,
+  Font,
 } from "@react-pdf/renderer";
 import api from "./../../utils/api";
+import FontRegular from "/RobotoCondensed-Regular.ttf";
+import FontSemiBold from "/RobotoCondensed-SemiBold.ttf";
 
+Font.register({
+  family: "RobotoCondensed",
+  fonts: [{ src: FontRegular }, { src: FontSemiBold }],
+});
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
     backgroundColor: "#fff",
     paddingHorizontal: "30px",
     paddingVertical: "20px",
+    fontFamily: "RobotoCondensed",
     fontSize: "9px",
     color: "#fff",
   },
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
   photo: {
     width: "100%",
     height: "63pt",
-    objectFit:"cover"
+    objectFit: "cover",
   },
 });
 
@@ -82,13 +91,13 @@ const TemplatePDF = ({ id }) => {
                     <Text
                       style={[{ textAlign: "center" }, { fontSize: "10px" }]}
                     >
-                      {"Gerencia del Programa de Seuridad"}
+                      {"Gerencia del Programa de Seguridad"}
                     </Text>
                     <Text
                       style={[
                         { textAlign: "center" },
                         { fontSize: "11px" },
-                        { fontWeight: 700 },
+                        { fontWeight: 600 },
                       ]}
                     >
                       {"LICENCIA DE CONDUCIR"}
@@ -103,9 +112,11 @@ const TemplatePDF = ({ id }) => {
                     { marginLeft: "10px" },
                     { marginRight: "10px" },
                     { marginBottom: "10px" },
+
                     { padding: "10px" },
                   ]}
                 >
+                  {" "}
                   <View style={[{ flexDirection: "row" }]}>
                     <View style={[{ flex: 1 }]}>
                       <Image style={[styles.photo]} src={it.photo} />
@@ -115,12 +126,33 @@ const TemplatePDF = ({ id }) => {
                         { flex: 3 },
                         { flexDirection: "column" },
                         { paddingLeft: "10px" },
+                        { position: "relative" },
                       ]}
                     >
+                      <View
+                        style={[
+                          { flex: 1 },
+                          {
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                          },
+                        ]}
+                      >
+                        <Image
+                          style={[
+                            { width: "100%", height: "100%" },
+                            { opacity: 0.3 },
+                          ]}
+                          src={"background-opacity.png"}
+                        />
+                      </View>
                       <Text
                         style={[
                           { color: "#000" },
-                          { fontWeight: 700 },
+                          { fontWeight: 400 },
                           { fontSize: "7px" },
                         ]}
                       >
@@ -129,8 +161,8 @@ const TemplatePDF = ({ id }) => {
                       <Text
                         style={[
                           { color: "#000" },
-                          { fontWeight: 700 },
-                          { fontSize: "10px" },
+                          { fontWeight: 600 },
+                          { fontSize: "9px" },
                         ]}
                       >
                         {it.name + " " + it.surname}
@@ -152,7 +184,7 @@ const TemplatePDF = ({ id }) => {
                           <Text
                             style={[
                               { color: "#000" },
-                              { fontWeight: 700 },
+                              { fontWeight: 400 },
                               { fontSize: "7px" },
                             ]}
                           >
@@ -161,7 +193,7 @@ const TemplatePDF = ({ id }) => {
                           <Text
                             style={[
                               { color: "#000" },
-                              { fontWeight: 700 },
+                              { fontWeight: 400 },
                               { fontSize: "7px" },
                             ]}
                           >
@@ -175,7 +207,7 @@ const TemplatePDF = ({ id }) => {
                           <Text
                             style={[
                               { color: "#000" },
-                              { fontWeight: 700 },
+                              { fontWeight: 400 },
                               { fontSize: "7px" },
                             ]}
                           >
@@ -184,7 +216,7 @@ const TemplatePDF = ({ id }) => {
                           <Text
                             style={[
                               { color: "#000" },
-                              { fontWeight: 700 },
+                              { fontWeight: 400 },
                               { fontSize: "7px" },
                             ]}
                           >
@@ -199,8 +231,8 @@ const TemplatePDF = ({ id }) => {
                           <Text
                             style={[
                               { color: "#000" },
-                              { fontWeight: 700 },
-                              { fontSize: "7px" },
+                              { fontWeight: 400 },
+                              { fontSize: "6px" },
                             ]}
                           >
                             {"Fecha de Expedición:"}
@@ -208,7 +240,7 @@ const TemplatePDF = ({ id }) => {
                           <Text
                             style={[
                               { color: "#000" },
-                              { fontWeight: 700 },
+                              { fontWeight: 400 },
                               { fontSize: "6px" },
                             ]}
                           >
@@ -222,7 +254,7 @@ const TemplatePDF = ({ id }) => {
                           <Text
                             style={[
                               { color: "#000" },
-                              { fontWeight: 700 },
+                              { fontWeight: 400 },
                               { fontSize: "6px" },
                             ]}
                           >
@@ -231,11 +263,11 @@ const TemplatePDF = ({ id }) => {
                           <Text
                             style={[
                               { color: "#000" },
-                              { fontWeight: 700 },
+                              { fontWeight: 400 },
                               { fontSize: "6px" },
                             ]}
                           >
-                            {"06/11/2023"}
+                            {"06/11/2024"}
                           </Text>
                         </View>
                       </View>
@@ -310,7 +342,7 @@ const TemplatePDF = ({ id }) => {
                       style={[
                         { textAlign: "center" },
                         { fontSize: "11px" },
-                        { fontWeight: 700 },
+                        { fontWeight: 600 },
                       ]}
                     >
                       {"LICENCIA DE CONDUCIR"}
@@ -340,7 +372,7 @@ const TemplatePDF = ({ id }) => {
                         <Text
                           style={[
                             { color: "#000" },
-                            { fontWeight: 700 },
+                            { fontWeight: 400 },
                             { fontSize: "6px" },
                           ]}
                         >
@@ -349,7 +381,7 @@ const TemplatePDF = ({ id }) => {
                         <Text
                           style={[
                             { color: "#000" },
-                            { fontWeight: 700 },
+                            { fontWeight: 600 },
                             { fontSize: "7px" },
                           ]}
                         >
@@ -362,7 +394,7 @@ const TemplatePDF = ({ id }) => {
                         <Text
                           style={[
                             { color: "#000" },
-                            { fontWeight: 700 },
+                            { fontWeight: 400 },
                             { fontSize: "6px" },
                           ]}
                         >
@@ -371,19 +403,20 @@ const TemplatePDF = ({ id }) => {
                         <Text
                           style={[
                             { color: "#000" },
-                            { fontWeight: 700 },
-                            { fontSize: "7px" },
+                            { fontWeight: 600 },
+                            { fontSize: "6px" },
                           ]}
                         >
-                          {it.address}
+                          {/*  {it.address} */}
+                          {"TOQUEPALA"}
                         </Text>
                       </View>
                       <View style={[{ flex: 1 }]}>
                         <Text
                           style={[
                             { color: "#000" },
-                            { fontWeight: 700 },
-                            { fontSize: "7px" },
+                            { fontWeight: 400 },
+                            { fontSize: "6px" },
                           ]}
                         >
                           {"Restricciones:"}{" "}
@@ -391,7 +424,7 @@ const TemplatePDF = ({ id }) => {
                         <Text
                           style={[
                             { color: "red" },
-                            { fontWeight: 700 },
+                            { fontWeight: 600 },
                             { fontSize: "6px" },
                           ]}
                         >
@@ -402,7 +435,7 @@ const TemplatePDF = ({ id }) => {
                     <View style={[{ flex: 5 }]}>
                       <Image
                         style={[
-                          { width: "100%", height: "63pt", opacity: "0.5" },
+                          { width: "100%", height: "63pt", opacity: "0.4" },
                         ]}
                         src={"background.png"}
                       />
@@ -418,7 +451,7 @@ const TemplatePDF = ({ id }) => {
                         { flex: 1 },
                       ]}
                     >
-                      <Image style={[styles.image]} src={"code.png"} />
+                      <Image style={[styles.image]} src={"codefinal.png"} />
                     </View>
                   </View>
                 </View>
