@@ -4,11 +4,15 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { SCHEMA_YUP } from "./YupValidation";
 import Webcam from "react-webcam";
+import dayjs from "dayjs";
 import api from "./../../utils/api";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Alerts from "./../../components/Alerts";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateField } from "@mui/x-date-pickers/DateField";
 const CreateUser = () => {
   const [alertCustom, setAlertCustom] = useState({
     type: "success",
@@ -38,7 +42,6 @@ const CreateUser = () => {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       setSubmitting(true);
       const { name, surname, doi, photo, dob, address } = values;
-      console.log(values);
       try {
         const response = await api.post("/user", {
           name: name.toUpperCase().trim(),
@@ -46,8 +49,8 @@ const CreateUser = () => {
           doi: doi.toUpperCase().trim(),
           address: address.toUpperCase().trim(),
           photo,
-          dob: new Date(dob),
-        });        
+          dob: new Date(dob.$d),
+        });
         setAlertCustom({
           type: "success",
           message: response.data.message,
@@ -55,7 +58,7 @@ const CreateUser = () => {
         });
         resetForm();
       } catch (error) {
-        console.log(error)
+        console.log(error);
         setAlertCustom({
           ...alertCustom,
           type: "error",
@@ -118,7 +121,25 @@ const CreateUser = () => {
               error={formik.touched.doi && Boolean(formik.errors.doi)}
               helperText={formik.touched.doi && formik.errors.doi}
             />
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Box>
+              {" "}
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DateField"]}>
+                  <DateField
+                    label="FECHA DE NACIMIENTO"
+                    id="dob"
+                    name="dob"
+                    format="DD/MM/YYYY"
+                    onChange={(val) => {
+                      formik.setFieldValue("dob", val);
+                    }}
+                    sx={{ width: "100%" }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Box>
+
+            {/*       <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 value={formik.values.dob}
                 id="dob"
@@ -134,7 +155,7 @@ const CreateUser = () => {
                   </>
                 )}
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
             <TextField
               id="address"
               name="address"
